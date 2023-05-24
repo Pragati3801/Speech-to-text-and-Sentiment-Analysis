@@ -1,0 +1,21 @@
+import speech_recognition as sr
+import pyaudio
+from textblob import TextBlob
+
+r = sr.Recognizer()
+print('start')
+with sr.Microphone() as source:
+    audiodata = r.record(source, duration = 5)
+    print('Recognizing...')
+    text = r.recognize_google(audiodata)
+    print(text)
+
+
+feedback=text
+blob1=TextBlob(feedback)
+if(blob1.sentiment.polarity)==0:
+    print("Neutral",blob1.sentiment)
+elif(blob1.sentiment.polarity)>0:
+    print("Positive",blob1.sentiment)
+else:
+    print("Negative",blob1.sentiment)
